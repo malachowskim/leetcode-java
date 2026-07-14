@@ -11,8 +11,7 @@ public class Solution {
         if (nums == null || nums.length == 0)
             return;
 
-        int pivot = nums.length - 1;
-
+        int pivot = -1;
         for (int i = nums.length - 2; i >= 0; i--) {
             if (nums[i] < nums[i + 1]) {
                 pivot = i;
@@ -20,21 +19,20 @@ public class Solution {
             }
         }
 
-        if (pivot != nums.length - 1) {
-            int smallest = pivot + 1;
-
-            for (int j = pivot + 2; j < nums.length; j++) {
-                if (nums[j] > nums[pivot] && nums[j] <= nums[smallest]) {
-                    smallest = j;
+        if (pivot != -1) {
+            for (int j = nums.length - 1; j > pivot; j--) {
+                if (nums[j] > nums[pivot]) {
+                    int temp = nums[pivot];
+                    nums[pivot] = nums[j];
+                    nums[j] = temp;
+                    break;
                 }
             }
-
-            int temp = nums[pivot];
-            nums[pivot] = nums[smallest];
-            nums[smallest] = temp;
         }
 
-        int left = pivot == nums.length - 1 ? 0 : pivot + 1, right = nums.length - 1;
+        int left = pivot + 1;
+        int right = nums.length - 1;
+
         while (left < right) {
             int temp = nums[left];
             nums[left++] = nums[right];
