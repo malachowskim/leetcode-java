@@ -1,7 +1,5 @@
 package p0033_search_in_rotated_sorted_array;
 
-import java.util.Arrays;
-
 /**
  * <a href="https://leetcode.com/problems/search-in-rotated-sorted-array/">33. Search in Rotated Sorted Array</a>
  * <br><br>
