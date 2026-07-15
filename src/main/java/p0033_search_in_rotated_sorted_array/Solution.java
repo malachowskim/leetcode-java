@@ -10,45 +10,31 @@ import java.util.Arrays;
 public class Solution {
 
     public int search(int[] nums, int target) {
-        int firstIdx = 0;
+        int left = 0;
+        int right = nums.length - 1;
 
-        while (true) {
-            if (nums.length == 0 || (nums.length == 1 && nums[0] != target)) {
-                return -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
             }
 
-            int first = nums[0];
-            int mid = nums[nums.length / 2];
-            if (mid == target) {
-                return firstIdx + nums.length / 2;
-            } else if (first == target) {
-                return firstIdx;
-            }
-
-            if (mid > target) {
-                if (mid > first) {
-                    if (target < first) {
-                        firstIdx += nums.length / 2;
-                        nums = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
-                    } else {
-                        nums = Arrays.copyOfRange(nums, 0, nums.length / 2);
-                    }
+            if (nums[left] <= nums[mid]) {
+                if (target >= nums[left] && target < nums[mid]) {
+                    right = mid - 1;
                 } else {
-                    nums = Arrays.copyOfRange(nums, 0, nums.length / 2);
+                    left = mid + 1;
                 }
             } else {
-                if (mid > first) {
-                    firstIdx += nums.length / 2;
-                    nums = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
+                if (target > nums[mid] && target <= nums[right]) {
+                    left = mid + 1;
                 } else {
-                    if (target < first) {
-                        firstIdx += nums.length / 2;
-                        nums = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
-                    } else {
-                        nums = Arrays.copyOfRange(nums, 0, nums.length / 2);
-                    }
+                    right = mid - 1;
                 }
             }
         }
+
+        return -1;
     }
 }
