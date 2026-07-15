@@ -2,7 +2,6 @@ package p0032_longest_valid_parentheses;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 
 /**
  * <a href="https://leetcode.com/problems/longest-valid-parentheses/">32. Longest Valid Parentheses</a>
