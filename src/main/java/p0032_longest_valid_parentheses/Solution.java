@@ -45,8 +45,9 @@ public class Solution {
             }
         }
 
-        if (leftmost != -1 && !stack.isEmpty()) {
-            int rb = s.length();
+        int rb = s.length();
+
+        if (leftmost != -1) {
 
             while (!stack.isEmpty()) {
                 int lb = stack.pop();
@@ -59,12 +60,6 @@ public class Solution {
             }
 
             int length = rb - leftmost;
-            if (length > longest) {
-                longest = length;
-            }
-
-        } else if (leftmost != -1) {
-            int length = s.length() - leftmost;
             if (length > longest) {
                 longest = length;
             }
