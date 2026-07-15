@@ -7,50 +7,62 @@ package p0037_sudoku_solver;
  */
 public class Solution {
 
-    public void solveSudoku(char[][] board) {
-        recurse(board);
-    }
+    private final int[] rows = new int[9];
+    private final int[] cols = new int[9];
+    private final int[] boxes = new int[9];
 
-    private boolean recurse(char[][] board) {
+    public void solveSudoku(char[][] board) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (board[i][j] == '.') {
-                    for (char num = '1'; num <= '9'; num++) {
-                        if (isValidNum(board, i, j, num)) {
-                            board[i][j] = num;
-                            if (recurse(board)) {
-                                return true;
-                            }
-                            board[i][j] = '.';
-                        }
-                    }
+                if (board[i][j] != '.') {
+                    int val = board[i][j] - '1';
+                    int bit = 1 << val;
+                    int boxIndex = (i / 3) * 3 + j / 3;
 
-                    return false;
+                    rows[i] |= bit;
+                    cols[j] |= bit;
+                    boxes[boxIndex] |= bit;
                 }
             }
         }
 
-        return true;
+        recurse(board, 0, 0);
     }
 
-    private boolean isValidNum(char[][] board, int x, int y, char num) {
-        int boxRowStart = (x / 3) * 3;
-        int boxColStart = (y / 3) * 3;
+    private boolean recurse(char[][] board, int r, int c) {
+        if (r == 9) {
+            return true;
+        }
 
-        for (int i = 0; i < 9; i++) {
-            if (board[x][i] == num) {
-                return false;
-            }
+        if (c == 9) {
+            return recurse(board, r + 1, 0);
+        }
 
-            if (board[i][y] == num) {
-                return false;
-            }
+        if (board[r][c] != '.') {
+            return recurse(board, r, c + 1);
+        }
 
-            if (board[boxRowStart + i / 3][boxColStart + i % 3] == num) {
-                return false;
+        int boxIndex = (r / 3) * 3 + c / 3;
+        for (int val = 0; val < 9; val++) {
+            int bit = 1 << val;
+
+            if ((rows[r] & bit) == 0 && (cols[c] & bit) == 0 && (boxes[boxIndex] & bit) == 0) {
+                board[r][c] = (char) (val + '1');
+                rows[r] |= bit;
+                cols[c] |= bit;
+                boxes[boxIndex] |= bit;
+
+                if (recurse(board, r, c + 1)) {
+                    return true;
+                }
+
+                board[r][c] = '.';
+                rows[r] ^= bit;
+                cols[c] ^= bit;
+                boxes[boxIndex] ^= bit;
             }
         }
 
-        return true;
+        return false;
     }
 }
