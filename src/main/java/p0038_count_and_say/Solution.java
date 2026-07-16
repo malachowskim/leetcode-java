@@ -14,9 +14,9 @@ public class Solution {
 
         String s = countAndSay(n - 1);
         StringBuilder sb = new StringBuilder();
-        int counter = 1;
+        int counter = 0;
         char currentNum, previousNum = s.charAt(0);
-        for (int left = 1; left < s.length(); left++) {
+        for (int left = 0; left < s.length(); left++) {
             currentNum = s.charAt(left);
             if (currentNum != previousNum) {
                 sb.append(counter).append(previousNum);
