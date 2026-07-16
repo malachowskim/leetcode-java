@@ -25,4 +25,13 @@ class SolutionTest {
 
         assertThat(result).isEqualTo("111221");
     }
+
+    @Test
+    void test3() {
+        int n = 1;
+
+        String result = solution.countAndSay(n);
+
+        assertThat(result).isEqualTo("1");
+    }
 }

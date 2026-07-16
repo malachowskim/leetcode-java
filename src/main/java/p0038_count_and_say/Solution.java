@@ -24,7 +24,6 @@ public class Solution {
             } else {
                 counter++;
             }
-
             previousNum = currentNum;
         }
 
