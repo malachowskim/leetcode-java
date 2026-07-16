@@ -31,7 +31,7 @@ public class Solution {
     private void recurse(int[] candidates, int target, List<Integer> current, int currentSum, int left, List<List<Integer>> result) {
         if (left >= candidates.length) {
             if (currentSum == target) {
-                result.add(current);
+                result.add(new ArrayList<>(current));
             }
             return;
         }
@@ -45,9 +45,9 @@ public class Solution {
             while (newLeft < candidates.length && diff < candidates[newLeft]) {
                 newLeft++;
             }
-            recurse(candidates, target, new ArrayList<>(current), currentSum, newLeft, result);
+            recurse(candidates, target, current, currentSum, newLeft, result);
             currentSum -= chosenNum;
-            current.remove((Integer) chosenNum);
+            current.removeLast();
         }
     }
 }
