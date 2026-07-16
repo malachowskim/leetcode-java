@@ -14,39 +14,25 @@ public class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         Arrays.sort(candidates);
 
-        int left = 0;
-        int right = candidates.length - 1;
-        while (left < right) {
-            int temp = candidates[left];
-            candidates[left++] = candidates[right];
-            candidates[right--] = temp;
-        }
-
         List<List<Integer>> result = new ArrayList<>();
-        recurse(candidates, target, new ArrayList<>(), 0, 0, result);
+        recurse(candidates, target, new ArrayList<>(), 0, result);
 
         return result;
     }
 
-    private void recurse(int[] candidates, int target, List<Integer> current, int currentSum, int left, List<List<Integer>> result) {
-        if (left >= candidates.length) {
-            if (currentSum == target) {
-                result.add(new ArrayList<>(current));
-            }
+    private void recurse(int[] candidates, int target, List<Integer> current, int left, List<List<Integer>> result) {
+        if (target == 0) {
+            result.add(new ArrayList<>(current));
             return;
         }
 
         for (int i = left; i < candidates.length; i++) {
-            int chosenNum = candidates[i];
-            currentSum += chosenNum;
-            current.add(chosenNum);
-            int diff = target - currentSum;
-            int newLeft = i;
-            while (newLeft < candidates.length && diff < candidates[newLeft]) {
-                newLeft++;
+            if (target - candidates[i] < 0) {
+                break;
             }
-            recurse(candidates, target, current, currentSum, newLeft, result);
-            currentSum -= chosenNum;
+
+            current.add(candidates[i]);
+            recurse(candidates, target - candidates[i], current, i, result);
             current.removeLast();
         }
     }

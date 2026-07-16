@@ -17,7 +17,7 @@ class SolutionTest {
 
         List<List<Integer>> result = solution.combinationSum(candidates, target);
 
-        assertThat(result).containsExactlyInAnyOrder(List.of(3,2,2), List.of(7));
+        assertThat(result).containsExactlyInAnyOrder(List.of(2,2,3), List.of(7));
     }
 
     @Test
@@ -27,7 +27,7 @@ class SolutionTest {
 
         List<List<Integer>> result = solution.combinationSum(candidates, target);
 
-        assertThat(result).containsExactlyInAnyOrder(List.of(2,2,2,2), List.of(3,3,2), List.of(5,3));
+        assertThat(result).containsExactlyInAnyOrder(List.of(2,2,2,2), List.of(2,3,3), List.of(3,5));
     }
 
     @Test
