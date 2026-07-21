@@ -9,31 +9,25 @@ public class Solution {
 
     public int trap(int[] height) {
         int result = 0;
+        int left = 0, right = height.length - 1;
         int lb = 0, rb = 0;
 
-        while (rb < height.length) {
-            if (height[rb] >= height[lb]) {
-                int maxHeight = Math.min(height[lb], height[rb]);
-                while (lb < rb) {
-                    result += maxHeight - height[lb++];
+        while (left < right) {
+            if (height[left] < height[right]) {
+                if (height[left] >= lb) {
+                    lb = height[left];
+                } else {
+                    result += lb - height[left];
                 }
-            }
-
-            rb++;
-        }
-
-        int max_lb = lb;
-        lb = height.length - 1;
-        rb = height.length - 1;
-        while (lb >= max_lb) {
-            if (height[lb] >= height[rb]) {
-                int maxHeight = Math.min(height[rb], height[lb]);
-                while (rb > lb) {
-                    result += maxHeight - height[rb--];
+                left++;
+            } else {
+                if (height[right] >= rb) {
+                    rb = height[right];
+                } else {
+                    result += rb - height[right];
                 }
+                right--;
             }
-
-            lb--;
         }
 
         return result;
