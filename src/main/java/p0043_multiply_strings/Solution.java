@@ -14,7 +14,8 @@ public class Solution {
             return "0";
         }
 
-        int[] ans = new int[num1.length() + num2.length()];
+        char[] ans = new char[num1.length() + num2.length()];
+        Arrays.fill(ans, '0');
 
         for (int i = num2.length() - 1; i >= 0; i--) {
             int digit2 = Character.getNumericValue(num2.charAt(i));
@@ -22,19 +23,30 @@ public class Solution {
                 int digit1 = Character.getNumericValue(num1.charAt(j));
                 int toAdd = digit1 * digit2;
                 for (int k = j + i + 1; toAdd > 0; k--) {
-                    int current = toAdd % 10;
-                    ans[k] += current;
-                    if (ans[k] > 9) {
+                    int toAddDigit = toAdd % 10;
+                    int current = Character.getNumericValue(ans[k]);
+                    current += toAddDigit;
+                    if (current > 9) {
                         toAdd += 10;
-                        ans[k] %= 10;
+                        current %= 10;
                     }
+                    ans[k] = Character.forDigit(current, 10);
                     toAdd /= 10;
                 }
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        Arrays.stream(ans).dropWhile(num -> num == 0).forEach(sb::append);
+        boolean bNonZero = false;
+        for (char an : ans) {
+            if (an != '0' && !bNonZero) {
+                bNonZero = true;
+            }
+
+            if (bNonZero) {
+                sb.append(an);
+            }
+        }
 
         return sb.toString();
     }
