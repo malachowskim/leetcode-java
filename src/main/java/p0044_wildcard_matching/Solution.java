@@ -1,4 +1,4 @@
-package p0044_wildacrd_matching;
+package p0044_wildcard_matching;
 
 /**
  * <a href="https://leetcode.com/problems/wildcard-matching/">44. Wildcard Matching</a>

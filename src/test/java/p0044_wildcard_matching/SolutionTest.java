@@ -1,4 +1,4 @@
-package p0044_wildacrd_matching;
+package p0044_wildcard_matching;
 
 import org.junit.jupiter.api.Test;
 
