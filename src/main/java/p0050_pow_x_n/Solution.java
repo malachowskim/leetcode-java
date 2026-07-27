@@ -12,20 +12,22 @@ public class Solution {
             return 1;
         }
 
+        long N = n;
+
         if (n < 0) {
-            n = -1 * n;
+            N = -N;
             x = 1.0 / x;
         }
 
         double result = 1;
-        while (n != 0) {
-            if (n % 2 == 1) {
+        while (N != 0) {
+            if (N % 2 == 1) {
                 result = result * x;
-                n -= 1;
+                N -= 1;
             }
 
             x *= x;
-            n /= 2;
+            N /= 2;
         }
 
         return result;
