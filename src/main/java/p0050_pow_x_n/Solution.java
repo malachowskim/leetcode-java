@@ -27,7 +27,7 @@ public class Solution {
             }
 
             x *= x;
-            N /= 2;
+            N >>>= 1;
         }
 
         return result;
