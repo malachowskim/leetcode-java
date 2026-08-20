@@ -6,13 +6,13 @@ package p0124_binary_tree_maximum_path_sum;
  * Difficulty: Hard
  */
 public class Solution {
-    public int maxClosed;
+    public int max;
 
     public int maxPathSum(TreeNode root) {
-        maxClosed = root.val;
-        int result = recurse(root);
+        max = root.val;
+        recurse(root);
 
-        return Math.max(result, maxClosed);
+        return max;
     }
 
     private int recurse(TreeNode root) {
@@ -20,12 +20,12 @@ public class Solution {
             return 0;
         }
 
-        int left = recurse(root.left);
-        int right = recurse(root.right);
+        int left = Math.max(0, recurse(root.left));
+        int right = Math.max(0, recurse(root.right));
 
-        maxClosed = Math.max(root.val, Math.max(maxClosed, Math.max(left + root.val, Math.max(right + root.val, left + right + root.val))));
-        root.val = Math.max(root.val, Math.max(left + root.val, right + root.val));
+        int currentMax = root.val + left + right;
+        max = Math.max(currentMax, max);
 
-        return root.val;
+        return root.val + Math.max(left, right);
     }
 }
