@@ -40,7 +40,6 @@ public class Solution {
                 }
 
                 char leftChar = s.charAt(left);
-
                 targetFreq[leftChar]++;
 
                 if (targetFreq[leftChar] > 0) {
