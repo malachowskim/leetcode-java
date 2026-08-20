@@ -13,7 +13,7 @@ public class Solution {
         List<TreeNode> pTree = recurse(root, new ArrayList<>(), p.val);
         List<TreeNode> qTree = recurse(root, new ArrayList<>(), q.val);
 
-        int maxSize = pTree.size() > qTree.size() ? qTree.size() : pTree.size();
+        int maxSize = Math.min(pTree.size(), qTree.size());
         int i;
         for (i = 1; i < maxSize; i++) {
             if (pTree.get(i) != qTree.get(i)) {
