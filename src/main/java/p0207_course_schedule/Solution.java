@@ -1,5 +1,10 @@
 package p0207_course_schedule;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  * <a href="https://leetcode.com/problems/course-schedule/">207. Course Schedule</a>
  * <br><br>
@@ -12,38 +17,40 @@ public class Solution {
             return true;
         }
 
-        boolean[][] requirements = new boolean[numCourses][numCourses];
-        boolean[] visited = new boolean[numCourses];
-        for (int[] arr : prerequisites) {
-            requirements[arr[0]][arr[1]] = true;
-        }
-
-        int prev_x = 0, x = 0;
-        do {
-            if (!visited[x]) {
-                boolean flag = false;
-                for (int y = 0; y < numCourses; y++) {
-                    if (requirements[x][y] && !visited[y]) {
-                        flag = true;
-                        break;
-                    }
-                }
-
-                if (!flag) {
-                    visited[x] = true;
-                    prev_x = x;
-                }
-            }
-
-            x = (x + 1) % numCourses;
-        } while (x != prev_x);
+        List<List<Integer>> graph = new ArrayList<>();
+        int[] inDegree = new int[numCourses];
 
         for (int i = 0; i < numCourses; i++) {
-            if (!visited[i]) {
-                return false;
+            graph.add(new ArrayList<>());
+        }
+
+        for (int[] pre : prerequisites) {
+            int course = pre[0];
+            int required = pre[1];
+            graph.get(required).add(course);
+            inDegree[course]++;
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                queue.offer(i);
             }
         }
 
-        return true;
+        int coursesTaken = 0;
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            coursesTaken++;
+
+            for (int nextCourse : graph.get(current)) {
+                inDegree[nextCourse]--;
+                if (inDegree[nextCourse] == 0) {
+                    queue.offer(nextCourse);
+                }
+            }
+        }
+
+        return coursesTaken == numCourses;
     }
 }
