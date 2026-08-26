@@ -12,12 +12,6 @@ public class Solution {
 
         int[][] visited = new int[m][n];
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                visited[i][j] = -1;
-            }
-        }
-
         int max = 0;
         for (int x = 0; x < m; x++) {
             for (int y = 0; y < n; y++) {
@@ -29,7 +23,7 @@ public class Solution {
     }
 
     private int recurse(int[][] matrix, int[][] visited, int x, int y) {
-        if (visited[x][y] != -1) {
+        if (visited[x][y] != 0) {
             return visited[x][y];
         }
 
