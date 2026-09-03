@@ -1,8 +1,5 @@
 package p0061_rotate_list;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * <a href="https://leetcode.com/problems/rotate-list/">61. Rotate List</a>
  * <br><br>
@@ -16,29 +13,29 @@ public class Solution {
         }
 
         ListNode dummy = new ListNode(0, head);
-
-        List<Integer> order = new ArrayList<>();
-        ListNode current = head;
-        while (current != null) {
-            order.add(current.val);
-            current = current.next;
+        ListNode last = dummy;
+        int count = 0;
+        while (last.next != null) {
+            count++;
+            last = last.next;
         }
 
-        k = order.size() - (k % order.size());
-        if (k == order.size()) {
+        k = k % count;
+        if (k == 0) {
             return head;
         }
 
-        int idx = k;
-        current = dummy;
+        int idx = count - k - 1;
 
-        do {
-            current.next = new ListNode(order.get(idx++));
-            current = current.next;
-            if (idx >= order.size()) {
-                idx = 0;
-            }
-        } while (idx != k);
+        head = dummy.next;
+        for (int i = 0; i < idx; i++) {
+            head = head.next;
+        }
+
+        ListNode temp = head.next;
+        head.next = null;
+        last.next = dummy.next;
+        dummy.next = temp;
         return dummy.next;
     }
 }

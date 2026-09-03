@@ -21,4 +21,15 @@ class SolutionTest {
 
         assertThat(result.toString()).isEqualTo("45123");
     }
+
+    @Test
+    void test2() {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        int k = 2;
+
+        ListNode result = solution.rotateRight(head, k);
+
+        assertThat(result.toString()).isEqualTo("12");
+    }
 }
