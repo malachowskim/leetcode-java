@@ -8,13 +8,10 @@ package p3876_construct_uniform_parity_array_ii;
 public class Solution {
 
     public boolean uniformArray(int[] nums1) {
-        Integer minEven = null;
-        Integer minOdd = null;
+        int minOdd = Integer.MAX_VALUE;
 
         for (int j : nums1) {
-            if (j % 2 == 0 && (minEven == null || j < minEven)) {
-                minEven = j;
-            } else if (j % 2 == 1 && (minOdd == null || j < minOdd)) {
+            if (j % 2 == 1 && (j < minOdd)) {
                 minOdd = j;
             }
         }
@@ -23,12 +20,16 @@ public class Solution {
         boolean bEven = true;
 
         for (int j : nums1) {
-            if (bOdd && !(j % 2 == 1 || (minOdd != null && j > minOdd))) {
+            if (bOdd && !(j % 2 == 1 || j > minOdd)) {
                 bOdd = false;
             }
 
-            if (bEven && !(j % 2 == 0) || j % 2 == 1 && minOdd != null && j > minOdd) {
+            if (bEven && !(j % 2 == 0) || j % 2 == 1 && j > minOdd) {
                 bEven = false;
+            }
+
+            if (!(bEven || bOdd)) {
+                break;
             }
         }
 
