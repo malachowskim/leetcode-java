@@ -11,7 +11,7 @@ public class Solution {
         int minOdd = Integer.MAX_VALUE;
 
         for (int j : nums1) {
-            if (j % 2 == 1 && (j < minOdd)) {
+            if ((j & 1) != 0 && j < minOdd) {
                 minOdd = j;
             }
         }
@@ -20,19 +20,21 @@ public class Solution {
         boolean bEven = true;
 
         for (int j : nums1) {
-            if (bOdd && !(j % 2 == 1 || j > minOdd)) {
-                bOdd = false;
-            }
+            boolean isOdd = (j & 1) != 0;
 
-            if (bEven && !(j % 2 == 0) || j % 2 == 1 && j > minOdd) {
+            if (isOdd) {
                 bEven = false;
+            } else {
+                if (j <= minOdd) {
+                    bOdd = false;
+                }
             }
 
-            if (!(bEven || bOdd)) {
-                break;
+            if (!bOdd && !bEven) {
+                return false;
             }
         }
 
-        return bOdd | bEven;
+        return true;
     }
 }
