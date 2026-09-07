@@ -7,26 +7,28 @@ package p0130_surrounded_regions;
  */
 public class Solution {
 
+    private static final int[][] DIRS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
     public void solve(char[][] board) {
         int m = board.length;
         int n = board[0].length;
 
         for (int i = 0; i < n; i++) {
             if (board[0][i] == 'O') {
-                recurse(board, 0, i);
+                dfs(board, 0, i);
             }
         }
 
         for (int i = 1; i < m; i++) {
             if (board[i][n - 1] == 'O') {
-                recurse(board, i, n - 1);
+                dfs(board, i, n - 1);
             }
         }
 
         if (m > 1) {
             for (int i = n - 2; i >= 0; i--) {
                 if (board[m - 1][i] == 'O') {
-                    recurse(board, m - 1, i);
+                    dfs(board, m - 1, i);
                 }
             }
         }
@@ -34,7 +36,7 @@ public class Solution {
         if (n > 1) {
             for (int i = m - 2; i >= 0; i--) {
                 if (board[i][0] == 'O') {
-                    recurse(board, i, 0);
+                    dfs(board, i, 0);
                 }
             }
         }
@@ -46,23 +48,15 @@ public class Solution {
         }
     }
 
-    private void recurse(char[][] board, int x, int y) {
+    private void dfs(char[][] board, int x, int y) {
         board[x][y] = 'V';
 
-        if (x > 0 && board[x - 1][y] == 'O') {
-            recurse(board, x - 1, y);
-        }
-
-        if (x < board.length - 1 && board[x + 1][y] == 'O') {
-            recurse(board, x + 1, y);
-        }
-
-        if (y > 0 && board[x][y - 1] == 'O') {
-            recurse(board, x, y - 1);
-        }
-
-        if (y < board[0].length - 1 && board[x][y + 1] == 'O') {
-            recurse(board, x, y + 1);
+        for (int[] dir : DIRS) {
+            int nx = x + dir[0];
+            int ny = y + dir[1];
+            if (nx >= 0 && nx < board.length && ny >= 0 && ny < board[0].length && board[nx][ny] == 'O') {
+                dfs(board, nx, ny);
+            }
         }
     }
 }
