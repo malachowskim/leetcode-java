@@ -9,15 +9,14 @@ public class Solution {
 
     public int removeDuplicates(int[] nums) {
         int n = nums.length;
-        int left = 1;
-        boolean bTolerance = true;
+        if (n <= 2) {
+            return n;
+        }
 
-        for (int right = 1; right < n; right++) {
-            if (nums[right] != nums[right - 1]) {
-                bTolerance = true;
-                nums[left++] = nums[right];
-            } else if (bTolerance) {
-                bTolerance = false;
+        int left = 2;
+
+        for (int right = 2; right < n; right++) {
+            if (nums[right] != nums[left - 2]) {
                 nums[left++] = nums[right];
             }
         }
