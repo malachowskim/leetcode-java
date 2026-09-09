@@ -1,8 +1,5 @@
 package p0169_majority_element;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * <a href="https://leetcode.com/problems/majority-element/">169. Majority Element</a>
  * <br><br>
@@ -11,19 +8,17 @@ import java.util.Map;
 public class Solution {
 
     public int majorityElement(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        int max = 0;
-        int maxNum = nums[0];
+        int count = 0;
+        Integer candidate = null;
 
         for (int num : nums) {
-            int cur = map.getOrDefault(num, 0) + 1;
-            map.put(num, cur);
-            if (cur > max) {
-                maxNum = num;
-                max = cur;
+            if (count == 0) {
+                candidate = num;
             }
+
+            count += (num == candidate) ? 1 : -1;
         }
 
-        return maxNum;
+        return candidate;
     }
 }
