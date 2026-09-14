@@ -9,29 +9,19 @@ public class Solution {
 
     public void rotate(int[] nums, int k) {
         int n = nums.length;
-        k = k % n;
-        int c = gcd(n, k);
-
-        for (int i = 0; i < c; i++) {
-            int idx = k + i;
-            int prev = nums[idx - k];
-
-            do {
-                int curr = nums[idx];
-                nums[idx] = prev;
-                prev = curr;
-
-                idx = (idx + k) % n;
-            } while (idx != k + i);
-        }
+        k %= n;
+        reverse(nums, 0, n - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, n - 1);
     }
 
-    private int gcd(int a, int b) {
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
         }
-        return a;
     }
 }
