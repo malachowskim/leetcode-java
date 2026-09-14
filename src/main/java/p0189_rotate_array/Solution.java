@@ -10,18 +10,28 @@ public class Solution {
     public void rotate(int[] nums, int k) {
         int n = nums.length;
         k = k % n;
-        if (k == 0) {
-            return;
-        }
+        int c = gcd(n, k);
 
-        int[] copy = nums.clone();
-        int idxCopy = n - k;
-        int idxNums = 0;
-        do {
-            nums[idxNums++] = copy[idxCopy++];
-            if (idxCopy == n) {
-                idxCopy = 0;
-            }
-        } while (idxCopy != n - k);
+        for (int i = 0; i < c; i++) {
+            int idx = k + i;
+            int prev = nums[idx - k];
+
+            do {
+                int curr = nums[idx];
+                nums[idx] = prev;
+                prev = curr;
+
+                idx = (idx + k) % n;
+            } while (idx != k + i);
+        }
+    }
+
+    private int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
 }
