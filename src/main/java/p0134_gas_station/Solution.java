@@ -8,11 +8,12 @@ package p0134_gas_station;
 public class Solution {
 
     public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length;
         int totalSurplus = 0;
         int currentSurplus = 0;
         int startIdx = 0;
 
-        for (int i = 0; i < gas.length; i++) {
+        for (int i = 0; i < n; i++) {
             int netGas = gas[i] - cost[i];
 
             totalSurplus += netGas;
