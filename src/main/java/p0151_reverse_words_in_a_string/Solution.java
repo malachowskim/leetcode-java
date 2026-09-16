@@ -34,7 +34,7 @@ public class Solution {
         if (bWord) {
             word.reverse();
             result.append(word);
-        } else {
+        } else if (!result.isEmpty()){
             result.deleteCharAt(result.length() - 1);
         }
         return result.toString();
