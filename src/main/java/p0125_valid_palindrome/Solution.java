@@ -18,7 +18,7 @@ public class Solution {
                 left++;
             } else if (!Character.isDigit(r) && (r > 'z' || r < 'a')) {
                 right--;
-            } else if (l !=r) {
+            } else if (l != r) {
                 return false;
             } else {
                 left++;
